@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <FlowDirection x:Key="AppFlowDirection">RightToLeft</FlowDirection>
+    
+    <system:String x:Key="Nav_Home">الرئيسية</system:String>
+    <system:String x:Key="Nav_Library">المكتبة</system:String>
+    <system:String x:Key="Nav_News">الأخبار</system:String>
+    <system:String x:Key="Nav_Downloads">التحميلات</system:String>
+    <system:String x:Key="Nav_Settings">الإعدادات</system:String>
+
+    <system:String x:Key="Lib_MyLibrary">مكتبتي</system:String>
+    <system:String x:Key="Lib_ScanGames">فحص الألعاب</system:String>
+    <system:String x:Key="Lib_Running">قيد التشغيل</system:String>
+    <system:String x:Key="Lib_Play">لعب</system:String>
+    <system:String x:Key="Lib_Stop">إيقاف</system:String>
+
+    <system:String x:Key="Set_Settings">الإعدادات</system:String>
+    <system:String x:Key="Set_General">عام</system:String>
+    <system:String x:Key="Set_DarkTheme">الوضع الداكن</system:String>
+    <system:String x:Key="Set_DarkThemeDesc">تفعيل الوضع الداكن لتجربة أفضل ليلاً</system:String>
+    <system:String x:Key="Set_AppLanguage">لغة التطبيق</system:String>
+    <system:String x:Key="Set_AppLanguageDesc">اختر لغتك المفضلة</system:String>
+</ResourceDictionary>

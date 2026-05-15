@@ -10,6 +10,7 @@
         mc:Ignorable="d"
         Title="Game Launcher" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen"
+        FlowDirection="{DynamicResource AppFlowDirection}"
         Background="{StaticResource PrimaryBackgroundBrush}"
         GlowBrush="{StaticResource AccentBrush}"
         WindowTitleBrush="{StaticResource SidebarBackgroundBrush}"

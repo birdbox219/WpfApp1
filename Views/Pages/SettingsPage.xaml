@@ -12,13 +12,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="SETTINGS" Style="{StaticResource TitleText}" Margin="0,0,0,30" />
+        <TextBlock Text="{DynamicResource Set_Settings}" Style="{StaticResource TitleText}" Margin="0,0,0,30" />
 
     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
         <StackPanel MaxWidth="800" HorizontalAlignment="Left" Margin="0,0,40,0">
             
             <!-- General Section -->
-            <TextBlock Text="General" Style="{StaticResource SubtitleText}" Margin="0,0,0,15" />
+            <TextBlock Text="{DynamicResource Set_General}" Style="{StaticResource SubtitleText}" Margin="0,0,0,15" />
             <Border Background="{StaticResource SidebarBackgroundBrush}" Padding="25" CornerRadius="12" Margin="0,0,0,30">
                 <StackPanel>
                     <!-- Theme Toggle -->
@@ -28,8 +28,8 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock Text="Dark Theme" Style="{StaticResource BodyText}" FontWeight="SemiBold" />
-                            <TextBlock Text="Enable dark mode for a better nighttime experience" Style="{StaticResource CaptionText}" Opacity="0.6" Margin="0,4,0,0" />
+                            <TextBlock Text="{DynamicResource Set_DarkTheme}" Style="{StaticResource BodyText}" FontWeight="SemiBold" />
+                            <TextBlock Text="{DynamicResource Set_DarkThemeDesc}" Style="{StaticResource CaptionText}" Opacity="0.6" Margin="0,4,0,0" />
                         </StackPanel>
                         <mah:ToggleSwitch Grid.Column="1" 
                                           IsOn="{Binding IsDarkTheme}" 
@@ -47,13 +47,12 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock Text="App Language" Style="{StaticResource BodyText}" FontWeight="SemiBold" />
-                            <TextBlock Text="Choose your preferred language" Style="{StaticResource CaptionText}" Opacity="0.6" Margin="0,4,0,0" />
+                            <TextBlock Text="{DynamicResource Set_AppLanguage}" Style="{StaticResource BodyText}" FontWeight="SemiBold" />
+                            <TextBlock Text="{DynamicResource Set_AppLanguageDesc}" Style="{StaticResource CaptionText}" Opacity="0.6" Margin="0,4,0,0" />
                         </StackPanel>
-                        <ComboBox Grid.Column="1" Width="200" VerticalAlignment="Center" SelectedIndex="0">
-                            <ComboBoxItem Content="English" />
-                            <ComboBoxItem Content="Spanish" />
-                            <ComboBoxItem Content="French" />
+                        <ComboBox Grid.Column="1" Width="200" VerticalAlignment="Center" SelectedIndex="{Binding SelectedLanguageIndex}">
+                            <ComboBoxItem Content="{DynamicResource Set_English}" />
+                            <ComboBoxItem Content="{DynamicResource Set_Arabic}" />
                         </ComboBox>
                     </Grid>
                 </StackPanel>

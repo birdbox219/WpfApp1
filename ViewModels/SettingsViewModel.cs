@@ -8,6 +8,19 @@ namespace WpfApp1.ViewModels
         private bool _isDarkTheme = true;
         private string _installDirectory = "C:\\Games\\VolcanicPeaks";
         private string _selectedResolution = "1920x1080";
+        private int _selectedLanguageIndex = 0;
+
+        public int SelectedLanguageIndex
+        {
+            get => _selectedLanguageIndex;
+            set
+            {
+                if (SetProperty(ref _selectedLanguageIndex, value))
+                {
+                    WpfApp1.Services.LanguageService.SetLanguage(value == 1);
+                }
+            }
+        }
 
         public bool IsDarkTheme
         {

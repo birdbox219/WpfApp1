@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <FlowDirection x:Key="AppFlowDirection">LeftToRight</FlowDirection>
+    
+    <system:String x:Key="Nav_Home">Home</system:String>
+    <system:String x:Key="Nav_Library">Library</system:String>
+    <system:String x:Key="Nav_News">News</system:String>
+    <system:String x:Key="Nav_Downloads">Downloads</system:String>
+    <system:String x:Key="Nav_Settings">Settings</system:String>
+
+    <system:String x:Key="Lib_MyLibrary">MY LIBRARY</system:String>
+    <system:String x:Key="Lib_ScanGames">SCAN GAMES</system:String>
+    <system:String x:Key="Lib_Running">RUNNING</system:String>
+    <system:String x:Key="Lib_Play">PLAY</system:String>
+    <system:String x:Key="Lib_Stop">STOP</system:String>
+
+    <system:String x:Key="Set_Settings">SETTINGS</system:String>
+    <system:String x:Key="Set_General">General</system:String>
+    <system:String x:Key="Set_DarkTheme">Dark Theme</system:String>
+    <system:String x:Key="Set_DarkThemeDesc">Enable dark mode for a better nighttime experience</system:String>
+    <system:String x:Key="Set_AppLanguage">App Language</system:String>
+    <system:String x:Key="Set_AppLanguageDesc">Choose your preferred language</system:String>
+</ResourceDictionary>
