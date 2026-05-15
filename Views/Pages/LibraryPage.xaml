@@ -44,7 +44,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewmodels:GameCardViewModel}">
-                        <Border Width="220" Height="320" Margin="0,0,20,20" 
+                        <Border Width="280" Height="210" Margin="0,0,20,20" 
                                 Background="{StaticResource SecondaryBackgroundBrush}" 
                                 CornerRadius="12" ClipToBounds="True"
                                 Style="{StaticResource NewsCardStyle}"> <!-- Reuse NewsCardStyle for hover effects -->
@@ -55,7 +55,7 @@
                                 </Grid.RowDefinitions>
 
                                 <!-- Banner/Thumbnail -->
-                                <Grid Grid.Row="0" Height="160">
+                                <Grid Grid.Row="0">
                                     <Rectangle Fill="#FF1A1A1D" />
                                     
                                     <!-- Game Banner Image -->
