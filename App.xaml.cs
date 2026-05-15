@@ -31,6 +31,7 @@ namespace WpfApp1
             services.AddSingleton<RiotDetectionService>();
             services.AddSingleton<EpicDetectionService>();
             services.AddSingleton<BattleNetDetectionService>();
+            services.AddSingleton<StandaloneDetectionService>();
             services.AddSingleton<GameDetectionService>();
             services.AddSingleton<LauncherService>();
 

@@ -13,17 +13,20 @@ namespace WpfApp1.Services
         private readonly RiotDetectionService _riotService;
         private readonly EpicDetectionService _epicService;
         private readonly BattleNetDetectionService _battleNetService;
+        private readonly StandaloneDetectionService _standaloneService;
 
         public GameDetectionService(
             SteamDetectionService steamService,
             RiotDetectionService riotService,
             EpicDetectionService epicService,
-            BattleNetDetectionService battleNetService)
+            BattleNetDetectionService battleNetService,
+            StandaloneDetectionService standaloneService)
         {
             _steamService = steamService;
             _riotService = riotService;
             _epicService = epicService;
             _battleNetService = battleNetService;
+            _standaloneService = standaloneService;
         }
 
         public async Task<ObservableCollection<GameInfo>> ScanForInstalledGamesAsync()
@@ -38,7 +41,8 @@ namespace WpfApp1.Services
                     _steamService.DetectSteamGamesAsync(),
                     _riotService.DetectRiotGamesAsync(),
                     _epicService.DetectEpicGamesAsync(),
-                    _battleNetService.DetectBattleNetGamesAsync()
+                    _battleNetService.DetectBattleNetGamesAsync(),
+                    _standaloneService.DetectStandaloneGamesAsync()
                 };
 
                 var results = await Task.WhenAll(tasks);
