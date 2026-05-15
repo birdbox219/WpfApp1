@@ -72,6 +72,8 @@ namespace WpfApp1.ViewModels
                         bitmap.EndInit();
                         bitmap.Freeze();
                         BannerImage = bitmap;
+
+                        
                     }
                 }
                 else
