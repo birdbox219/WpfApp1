@@ -18,13 +18,19 @@ namespace WpfApp1.Services
         private readonly string[] _ignoredPublishers = new[] 
         { 
             "microsoft", "intel", "nvidia", "amd", "realtek", "google", 
-            "adobe", "apple", "mozilla", "oracle", "logitech", "corsair", "razer", "hp ", "dell", "lenovo", "asus", "acer"
+            "adobe", "apple", "mozilla", "oracle", "logitech", "corsair", "razer", 
+            "hp ", "dell", "lenovo", "asus", "acer", "brave", "qt company", "blender", 
+            "git", "github", "docker", "vmware", "canonical", "valve", 
+            "epic games", "riot games", "blizzard", "electronic arts", "ubisoft"
         };
 
         // Keywords in app names to ignore
         private readonly string[] _ignoredKeywords = new[]
         {
-            "redistributable", "update", "runtime", "service", "driver", "sdk", "tools", "visual c++", "framework", "antivirus", "player"
+            "redistributable", "update", "runtime", "service", "driver", "sdk", "tools", 
+            "visual c++", "framework", "antivirus", "player", "browser", "studio", 
+            "server", "client", "vpn", "launcher", "engine", "plugin", "extension",
+            "support", "manager", "viewer", "setup", "installer"
         };
 
         public async Task<List<GameInfo>> DetectStandaloneGamesAsync()
@@ -32,21 +38,21 @@ namespace WpfApp1.Services
             var games = new List<GameInfo>();
             var installedApps = GetInstalledApplications();
 
-            // Filter out obvious non-games
+            // Filter out obvious non-games and other launcher games
             var potentialGames = installedApps.Where(app => 
                 !string.IsNullOrEmpty(app.Name) && 
                 !string.IsNullOrEmpty(app.InstallPath) &&
-                !IsIgnored(app.Name, app.Publisher)
+                !IsIgnored(app.Name, app.Publisher, app.InstallPath)
             ).ToList();
 
-            // To avoid spamming Steam API, limit concurrency
-            var semaphore = new System.Threading.SemaphoreSlim(5);
+            // Increase concurrency to 20 for much faster scanning
+            var semaphore = new System.Threading.SemaphoreSlim(20);
             var tasks = potentialGames.Select(async app =>
             {
                 await semaphore.WaitAsync();
                 try
                 {
-                    // Check if it's a game via Steam API
+                    // Strict Steam API check
                     var isGame = await VerifyGameWithSteamAsync(app.Name);
                     if (isGame)
                     {
@@ -78,10 +84,19 @@ namespace WpfApp1.Services
             return games;
         }
 
-        private bool IsIgnored(string name, string publisher)
+        private bool IsIgnored(string name, string publisher, string installPath)
         {
             var lowerName = name.ToLowerInvariant();
             var lowerPub = (publisher ?? "").ToLowerInvariant();
+            var lowerPath = (installPath ?? "").ToLowerInvariant();
+
+            // Ignore games that are already handled by other launchers
+            if (lowerPath.Contains("steamapps") || lowerPath.Contains("epic games") || lowerPath.Contains("riot games") || lowerPath.Contains("battle.net"))
+                return true;
+
+            // Ignore common system/dev paths
+            if (lowerPath.Contains("windows") || lowerPath.Contains("system32") || lowerPath.Contains("appdata"))
+                return true;
 
             if (_ignoredPublishers.Any(p => lowerPub.Contains(p))) return true;
             if (_ignoredKeywords.Any(k => lowerName.Contains(k))) return true;
@@ -93,9 +108,9 @@ namespace WpfApp1.Services
         {
             try
             {
-                // Clean up name (e.g., remove "v1.0", "GOG", etc.)
+                // Clean up name
                 var cleanName = name.Replace("GOG.com", "").Replace("GOG", "").Trim();
-                if (string.IsNullOrWhiteSpace(cleanName)) return false;
+                if (cleanName.Length <= 2) return false;
 
                 var url = $"https://store.steampowered.com/api/storesearch/?term={Uri.EscapeDataString(cleanName)}&l=english&cc=US";
                 var response = await _httpClient.GetAsync(url);
@@ -103,8 +118,23 @@ namespace WpfApp1.Services
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     using var doc = JsonDocument.Parse(json);
-                    var total = doc.RootElement.GetProperty("total").GetInt32();
-                    return total > 0; // If Steam returns at least 1 match, we consider it a game!
+                    
+                    if (doc.RootElement.TryGetProperty("items", out var items) && items.GetArrayLength() > 0)
+                    {
+                        foreach (var item in items.EnumerateArray())
+                        {
+                            var steamName = item.GetProperty("name").GetString();
+                            
+                            // Strict match check
+                            if (steamName.Equals(cleanName, StringComparison.OrdinalIgnoreCase))
+                                return true;
+                            
+                            // Loose match check (if Steam appends "Edition" etc.)
+                            if (steamName.StartsWith(cleanName, StringComparison.OrdinalIgnoreCase) && 
+                                Math.Abs(steamName.Length - cleanName.Length) < 15)
+                                return true;
+                        }
+                    }
                 }
             }
             catch { }
