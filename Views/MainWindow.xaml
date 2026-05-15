@@ -55,7 +55,7 @@
 
                 <!-- Logo/Title -->
                 <StackPanel Grid.Row="0" VerticalAlignment="Center" Margin="20,0">
-                    <TextBlock Text="VOLCANIC" FontSize="28" FontWeight="ExtraBold" Foreground="{StaticResource AccentBrush}" />
+                    <TextBlock Text="CodeArts" FontSize="28" FontWeight="ExtraBold" Foreground="{DynamicResource MahApps.Brushes.Button.CleanWindow.Close.Background.MouseOver}" />
                     <TextBlock Text="LAUNCHER" FontSize="12" FontWeight="Bold" Foreground="White" Margin="2, -5, 0, 0" />
                 </StackPanel>
 

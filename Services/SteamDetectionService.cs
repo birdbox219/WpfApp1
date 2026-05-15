@@ -127,7 +127,7 @@ namespace WpfApp1.Services
                 Platform = GamePlatform.Steam,
                 IsInstalled = true,
                 CurrentState = GameState.Installed,
-                LaunchArguments = $"-applaunch {appId}"
+                //LaunchArguments = $"-applaunch {appId}" // make steam launch popup cutsom lucnh argument not used for now 
             };
         }
 
