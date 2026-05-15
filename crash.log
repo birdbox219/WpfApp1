@@ -1,0 +1,13 @@
+System.Windows.Markup.XamlParseException: 'Provide value on 'System.Windows.StaticResourceExtension' threw an exception.' Line number '28' and line position '18'.
+ ---> System.Exception: Cannot find resource named 'MaterialDesignFlatButton'. Resource names are case sensitive.
+   at System.Windows.StaticResourceExtension.ProvideValueInternal(IServiceProvider serviceProvider, Boolean allowDeferredReference)
+   at MS.Internal.Xaml.Runtime.ClrObjectRuntime.CallProvideValue(MarkupExtension me, IServiceProvider serviceProvider)
+   --- End of inner exception stack trace ---
+   at System.Windows.Markup.XamlReader.RewrapException(Exception e, IXamlLineInfo lineInfo, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadComponent(Object component, Uri resourceLocator)
+   at WpfApp1.Views.Pages.LibraryPage.InitializeComponent() in D:\AI_LLMs\PromptEngineering\WPFgameLuncher\test1\WpfApp1\Views\Pages\LibraryPage.xaml:line 1
+   at WpfApp1.Views.Pages.LibraryPage..ctor() in D:\AI_LLMs\PromptEngineering\WPFgameLuncher\test1\WpfApp1\Views\Pages\LibraryPage.xaml.cs:line 9
+   at WpfApp1.App.OnStartup(StartupEventArgs e) in D:\AI_LLMs\PromptEngineering\WPFgameLuncher\test1\WpfApp1\App.xaml.cs:line 55

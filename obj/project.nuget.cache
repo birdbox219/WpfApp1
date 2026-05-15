@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "YTd7twFmYpY=",
+  "success": true,
+  "projectFilePath": "D:\\AI_LLMs\\PromptEngineering\\WPFgameLuncher\\test1\\WpfApp1\\WpfApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\badri\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
+    "C:\\Users\\badri\\.nuget\\packages\\mahapps.metro\\2.4.10\\mahapps.metro.2.4.10.nupkg.sha512",
+    "C:\\Users\\badri\\.nuget\\packages\\materialdesigncolors\\3.1.0\\materialdesigncolors.3.1.0.nupkg.sha512",
+    "C:\\Users\\badri\\.nuget\\packages\\materialdesignthemes\\5.1.0\\materialdesignthemes.5.1.0.nupkg.sha512",
+    "C:\\Users\\badri\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.1\\microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
+    "C:\\Users\\badri\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\badri\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
+    "C:\\Users\\badri\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
+  ],
+  "logs": []
+}

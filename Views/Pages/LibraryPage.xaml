@@ -1,0 +1,124 @@
+<UserControl x:Class="WpfApp1.Views.Pages.LibraryPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:viewmodels="clr-namespace:WpfApp1.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1000">
+    
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,30">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="MY LIBRARY" Style="{StaticResource TitleText}" />
+                <Border Background="#1AFFFFFF" CornerRadius="10" Padding="8,2" Margin="15,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding InstalledGames.Count}" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" />
+                </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding ScanGamesCommand}" Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource TextMutedBrush}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Refresh" Margin="0,0,8,0" />
+                        <TextBlock Text="SCAN GAMES" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Games Grid -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding InstalledGames}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:GameCardViewModel}">
+                        <Border Width="220" Height="320" Margin="0,0,20,20" 
+                                Background="{StaticResource SecondaryBackgroundBrush}" 
+                                CornerRadius="12" ClipToBounds="True"
+                                Style="{StaticResource NewsCardStyle}"> <!-- Reuse NewsCardStyle for hover effects -->
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Banner/Thumbnail -->
+                                <Grid Grid.Row="0" Height="160">
+                                    <Rectangle Fill="#FF1A1A1D" />
+                                    
+                                    <!-- Game Banner Image -->
+                                    <Image Source="{Binding BannerImage}" 
+                                           Stretch="UniformToFill" 
+                                           RenderOptions.BitmapScalingMode="HighQuality" />
+                                    
+                                    <!-- Fallback Icon (if image fails or is empty) -->
+                                    <materialDesign:PackIcon Kind="GamepadVariant" Width="48" Height="48" 
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                                           Opacity="0.1" Foreground="White" 
+                                                           Visibility="{Binding Game.BannerPath, Converter={StaticResource NullToVisibilityConverter}}" />
+                                    
+                                    <!-- Platform Badge -->
+                                    <Border HorizontalAlignment="Right" VerticalAlignment="Top" 
+                                            Margin="10" Padding="6" CornerRadius="4" Background="#CC000000">
+                                        <materialDesign:PackIcon Kind="{Binding Game.Platform, Converter={StaticResource PlatformToIconConverter}}" 
+                                                               Width="16" Height="16" Foreground="White" />
+                                    </Border>
+
+                                    <!-- Status Overlay -->
+                                    <Border Background="#CC000000" Visibility="{Binding Game.IsRunning, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="ChartDonut" Width="24" Height="24" HorizontalAlignment="Center" Foreground="Lime" />
+                                            <TextBlock Text="RUNNING" Foreground="Lime" FontSize="12" FontWeight="Bold" Margin="0,5,0,0" />
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <!-- Info -->
+                                <StackPanel Grid.Row="1" Margin="15">
+                                    <TextBlock Text="{Binding Game.Name}" Style="{StaticResource SubtitleText}" 
+                                               FontSize="16" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                    
+                                    <Grid Margin="0,10,0,0">
+                                        <Button Content="PLAY" 
+                                                Command="{Binding LaunchCommand}"
+                                                Visibility="{Binding Game.IsRunning, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                                                Style="{StaticResource PlayButtonStyle}" 
+                                                Height="32" FontSize="12" Padding="10,0,10,0" />
+                                        
+                                        <Button Content="STOP" 
+                                                Command="{Binding StopCommand}"
+                                                Visibility="{Binding Game.IsRunning, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                Background="Red" BorderBrush="Red"
+                                                Style="{StaticResource PlayButtonStyle}" 
+                                                Height="32" FontSize="12" Padding="10,0,10,0" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Scanning Overlay -->
+        <Border Grid.RowSpan="2" Background="#CC0A0A0C" 
+                Visibility="{Binding IsScanning, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <mah:ProgressRing Foreground="{StaticResource AccentBrush}" Width="60" Height="60" />
+                <TextBlock Text="{Binding ScanStatus}" Margin="0,20,0,0" HorizontalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,108 @@
+<UserControl x:Class="WpfApp1.Views.Pages.SettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1000">
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="SETTINGS" Style="{StaticResource TitleText}" Margin="0,0,0,30" />
+
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <StackPanel MaxWidth="800" HorizontalAlignment="Left" Margin="0,0,40,0">
+            
+            <!-- General Section -->
+            <TextBlock Text="General" Style="{StaticResource SubtitleText}" Margin="0,0,0,15" />
+            <Border Background="{StaticResource SidebarBackgroundBrush}" Padding="25" CornerRadius="12" Margin="0,0,0,30">
+                <StackPanel>
+                    <!-- Theme Toggle -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Dark Theme" Style="{StaticResource BodyText}" FontWeight="SemiBold" />
+                            <TextBlock Text="Enable dark mode for a better nighttime experience" Style="{StaticResource CaptionText}" Opacity="0.6" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <mah:ToggleSwitch Grid.Column="1" 
+                                          IsOn="{Binding IsDarkTheme}" 
+                                          OnContent="" OffContent="" 
+                                          Margin="20,0,0,0"
+                                          VerticalAlignment="Center" />
+                    </Grid>
+                    
+                    <Separator Background="#1AFFFFFF" Margin="0,20" />
+                    
+                    <!-- Language Selection -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="App Language" Style="{StaticResource BodyText}" FontWeight="SemiBold" />
+                            <TextBlock Text="Choose your preferred language" Style="{StaticResource CaptionText}" Opacity="0.6" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <ComboBox Grid.Column="1" Width="200" VerticalAlignment="Center" SelectedIndex="0">
+                            <ComboBoxItem Content="English" />
+                            <ComboBoxItem Content="Spanish" />
+                            <ComboBoxItem Content="French" />
+                        </ComboBox>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Game Settings Section -->
+            <TextBlock Text="Game Settings" Style="{StaticResource SubtitleText}" Margin="0,0,0,15" />
+            <Border Background="{StaticResource SidebarBackgroundBrush}" Padding="25" CornerRadius="12" Margin="0,0,0,30">
+                <StackPanel>
+                    <!-- Install Directory -->
+                    <StackPanel Margin="0,0,0,25">
+                        <TextBlock Text="Install Directory" Style="{StaticResource BodyText}" FontWeight="SemiBold" Margin="0,0,0,10" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Background="#0DFFFFFF" CornerRadius="4" Padding="12,8">
+                                <TextBlock Text="{Binding InstallDirectory}" Style="{StaticResource BodyText}" Opacity="0.8" VerticalAlignment="Center" />
+                            </Border>
+                            <Button Grid.Column="1" Content="CHANGE" 
+                                    Margin="10,0,0,0"
+                                    Padding="15,0"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource AccentBrush}"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Cursor="Hand" />
+                        </Grid>
+                    </StackPanel>
+                    
+                    <Separator Background="#1AFFFFFF" Margin="0,0,0,25" />
+
+                    <!-- Screen Resolution -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Screen Resolution" Style="{StaticResource BodyText}" FontWeight="SemiBold" />
+                            <TextBlock Text="Adjust the display resolution of the game" Style="{StaticResource CaptionText}" Opacity="0.6" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <ComboBox Grid.Column="1" Width="200" ItemsSource="{Binding Resolutions}" SelectedItem="{Binding SelectedResolution}" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+    </Grid>
+</UserControl>
