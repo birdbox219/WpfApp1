@@ -56,7 +56,7 @@ namespace WpfApp1.Services
 
             // Remove duplicates by install path
             var uniqueGames = allGames
-                .GroupBy(g => g.InstallPath?.ToLowerInvariant())
+                .GroupBy(g => g.Name?.ToLowerInvariant())
                 .Select(g => g.First())
                 .OrderBy(g => g.Name)
                 .ToList();

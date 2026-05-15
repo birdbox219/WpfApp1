@@ -45,7 +45,11 @@ namespace WpfApp1.ViewModels
         {
             var path = Game.BannerPath;
             if (string.IsNullOrWhiteSpace(path))
-                return;
+            {
+                path = await FetchBannerFromSteamAsync(Game.Name);
+                if (string.IsNullOrWhiteSpace(path))
+                    return;
+            }
 
             try
             {
@@ -98,6 +102,27 @@ namespace WpfApp1.ViewModels
         private async Task StopAsync()
         {
             await _launcherService.StopGameAsync(Game);
+        }
+
+        private async Task<string> FetchBannerFromSteamAsync(string gameName)
+        {
+            try
+            {
+                var url = $"https://store.steampowered.com/api/storesearch/?term={Uri.EscapeDataString(gameName)}&l=english&cc=US";
+                var response = await _httpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var match = System.Text.RegularExpressions.Regex.Match(json, @"""id""\s*:\s*(\d+)");
+                    if (match.Success)
+                    {
+                        var appId = match.Groups[1].Value;
+                        return $"https://cdn.akamai.steamstatic.com/steam/apps/{appId}/header.jpg";
+                    }
+                }
+            }
+            catch { }
+            return null;
         }
     }
 }
