@@ -21,4 +21,6 @@
     <system:String x:Key="Set_DarkThemeDesc">Enable dark mode for a better nighttime experience</system:String>
     <system:String x:Key="Set_AppLanguage">App Language</system:String>
     <system:String x:Key="Set_AppLanguageDesc">Choose your preferred language</system:String>
+    <system:String x:Key="Set_English">English</system:String>
+    <system:String x:Key="Set_Arabic">Arabic</system:String>
 </ResourceDictionary>

@@ -21,4 +21,6 @@
     <system:String x:Key="Set_DarkThemeDesc">تفعيل الوضع الداكن لتجربة أفضل ليلاً</system:String>
     <system:String x:Key="Set_AppLanguage">لغة التطبيق</system:String>
     <system:String x:Key="Set_AppLanguageDesc">اختر لغتك المفضلة</system:String>
+    <system:String x:Key="Set_English">الإنجليزية</system:String>
+    <system:String x:Key="Set_Arabic">العربية</system:String>
 </ResourceDictionary>
